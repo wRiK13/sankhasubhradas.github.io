@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankha Subhra Das - Software Engineer Portfolio</title>
+    <!-- Chosen Palette: Radiant Blues & Greys -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* slate-50 */
+            color: #1E293B; /* slate-900 */
+            background-image: linear-gradient(135deg, #F8FAFC 25%, #EBF8FF 25%, #EBF8FF 50%, #F8FAFC 50%, #F8FAFC 75%, #EBF8FF 75%, #EBF8FF);
+            background-size: 40px 40px; /* Subtle diagonal pattern */
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .section-padding {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 400px; /* Fixed height for consistency */
+            max-height: 50vh;
+            margin: 0 auto; /* Center it */
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* rounded-3xl for softer look */
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 5px 10px -5px rgba(0, 0, 0, 0.08); /* Stronger shadow */
+        }
+        .timeline-line {
+            width: 4px;
+            background: linear-gradient(to bottom, #0EA5E9, #22D3EE); /* sky-500 to cyan-400 */
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #0EA5E9; /* sky-500 */
+            border: 4px solid #F8FAFC; /* Light background */
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 12px rgba(14, 165, 233, 0.7);
+            animation: pulse-dot 1.5s infinite ease-in-out; /* Continuous pulse */
+        }
+        @keyframes pulse-dot {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* Hero background animations */
+        @keyframes flow1 {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+            50% { transform: translate(-40%, -40%) scale(1.1); opacity: 0.15; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+        }
+        @keyframes flow2 {
+            0% { transform: translate(50%, 50%) scale(1); opacity: 0.1; }
+            50% { transform: translate(40%, 40%) scale(1.1); opacity: 0.15; }
+            100% { transform: translate(50%, 50%) scale(1); opacity: 0.1; }
+        }
+        @keyframes flow3 {
+            0% { transform: translate(0%, 0%) scale(1); opacity: 0.1; }
+            50% { transform: translate(10%, 10%) scale(1.1); opacity: 0.15; }
+            100% { transform: translate(0%, 0%) scale(1); opacity: 0.1; }
+        }
+        .animate-flow-bg1 { animation: flow1 15s infinite ease-in-out; }
+        .animate-flow-bg2 { animation: flow2 18s infinite ease-in-out 2s; }
+        .animate-flow-bg3 { animation: flow3 12s infinite ease-in-out 1s; }
+
+        /* Section background flowing shapes (subtler than hero) */
+        .section-bg-shape1 {
+            animation: flow1 20s infinite ease-in-out;
+            opacity: 0.05;
+        }
+        .section-bg-shape2 {
+            animation: flow2 25s infinite ease-in-out 3s;
+            opacity: 0.05;
+        }
+
+        /* General fade-in animation for sections */
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px); /* Increased translate for more noticeable effect */
+            transition: opacity 1s ease-out, transform 1s ease-out; /* Slower transition */
+        }
+        .animate-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-lg py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#hero" class="text-3xl font-extrabold text-blue-700 hover:text-blue-900 transition-colors">Sankha Subhra Das</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#summary" class="text-lg font-medium text-slate-700 hover:text-blue-600 transition-colors duration-300">Summary</a>
+                <a href="#skills" class="text-lg font-medium text-slate-700 hover:text-blue-600 transition-colors duration-300">Skills</a>
+                <a href="#experience" class="text-lg font-medium text-slate-700 hover:text-blue-600 transition-colors duration-300">Experience</a>
+                <a href="#education" class="text-lg font-medium text-slate-700 hover:text-blue-600 transition-colors duration-300">Education</a>
+                <a href="#projects" class="text-lg font-medium text-slate-700 hover:text-blue-600 transition-colors duration-300">Projects</a>
+                <a href="#contact" class="text-lg font-medium text-slate-700 hover:text-blue-600 transition-colors duration-300">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-slate-700 text-3xl focus:outline-none">
+                &#9776;
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 shadow-inner">
+            <a href="#summary" class="block px-6 py-2 text-slate-700 hover:bg-blue-50 transition-colors duration-200">Summary</a>
+            <a href="#skills" class="block px-6 py-2 text-slate-700 hover:bg-blue-50 transition-colors duration-200">Skills</a>
+            <a href="#experience" class="block px-6 py-2 text-slate-700 hover:bg-blue-50 transition-colors duration-200">Experience</a>
+            <a href="#education" class="block px-6 py-2 text-slate-700 hover:bg-blue-50 transition-colors duration-200">Education</a>
+            <a href="#projects" class="block px-6 py-2 text-slate-700 hover:bg-blue-50 transition-colors duration-200">Projects</a>
+            <a href="#contact" class="block px-6 py-2 text-slate-700 hover:bg-blue-50 transition-colors duration-200">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative bg-gradient-to-br from-blue-700 to-cyan-600 text-white min-h-screen flex items-center justify-center text-center overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <!-- Background flowing shapes -->
+            <div class="absolute w-64 h-64 bg-white rounded-full mix-blend-overlay animate-flow-bg1 top-1/4 left-1/4" style="transform: translate(-50%, -50%);"></div>
+            <div class="absolute w-80 h-80 bg-white rounded-full mix-blend-overlay animate-flow-bg2 bottom-1/4 right-1/4" style="transform: translate(50%, 50%);"></div>
+            <div class="absolute w-48 h-48 bg-white rounded-full mix-blend-overlay animate-flow-bg3 top-1/2 left-1/2" style="transform: translate(-50%, -50%);"></div>
+        </div>
+        <div class="relative z-10 p-8 max-w-5xl">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight drop-shadow-2xl mb-6">
+                Software Engineer <br> <span class="text-blue-200">& </span>  <br> Database Specialist
+            </h1>
+            <p class="text-xl md:text-3xl font-light leading-relaxed drop-shadow-lg animate-fade-in">
+                Driving innovation through robust data architecture and seamless backend solutions.
+            </p>
+            <a href="#contact" class="inline-block mt-12 px-10 py-5 bg-white text-blue-700 text-xl md:text-2xl font-extrabold rounded-full shadow-2xl hover:bg-blue-50 hover:scale-105 transform transition-all duration-300 ease-out animate-fade-in">
+                Let's Connect
+            </a>
+        </div>
+    </section>
+
+    <!-- Profile Summary Section -->
+    <section id="summary" class="container mx-auto section-padding relative overflow-hidden animate-fade-in">
+        <div class="absolute w-48 h-48 bg-blue-200 rounded-full mix-blend-overlay top-0 left-0 section-bg-shape1" style="transform: translate(-30%, -30%);"></div>
+        <div class="absolute w-60 h-60 bg-cyan-200 rounded-full mix-blend-overlay bottom-0 right-0 section-bg-shape2" style="transform: translate(30%, 30%);"></div>
+        <div class="relative z-10 bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center border-t-8 border-blue-600">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-6">Who I Am</h2>
+            <p class="text-lg md:text-xl leading-relaxed text-slate-700 max-w-4xl mx-auto">
+                A highly motivated and detail-oriented Software Engineer with <b>2 years and 6 months of hands-on experience</b> in <b>database management, UI design, and comprehensive manual and unit testing</b>. I excel in designing, implementing, and maintaining robust backend systems with a strong emphasis on data integrity, performance optimization, and scalable solutions. My proficiency extends to leveraging advanced tools like <b>Google Document AI</b> for data parsing and automation. I am eager to apply my specialized skills in relational database systems and contribute to mission-critical data initiatives within leading financial services or consulting organizations.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="flex flex-col items-center p-4 bg-blue-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-5xl text-cyan-600 mb-3">🌟</span>
+                    <h3 class="text-4xl font-extrabold text-slate-800">2.5+</h3>
+                    <p class="text-lg text-slate-600">Years of Experience</p>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-blue-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-5xl text-cyan-600 mb-3">🚀</span>
+                    <h3 class="text-4xl font-extrabold text-slate-800">6+</h3>
+                    <p class="text-lg text-slate-600">Key Projects</p>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-blue-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <span class="text-5xl text-cyan-600 mb-3">🏆</span>
+                    <h3 class="text-4xl font-extrabold text-slate-800">1</h3>
+                    <p class="text-lg text-slate-600">Azure Certification</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="container mx-auto section-padding bg-blue-50 rounded-3xl shadow-2xl relative overflow-hidden animate-fade-in">
+        <div class="absolute w-48 h-48 bg-blue-200 rounded-full mix-blend-overlay top-1/4 right-0 section-bg-shape1" style="transform: translate(30%, -30%);"></div>
+        <div class="absolute w-60 h-60 bg-cyan-200 rounded-full mix-blend-overlay bottom-0 left-0 section-bg-shape2" style="transform: translate(-30%, 30%);"></div>
+        <div class="relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700 text-center mb-4">My Technical Arsenal</h2>
+            <p class="text-center text-slate-700 mb-12 max-w-3xl mx-auto text-lg">
+                A comprehensive overview of my technical capabilities, highlighting my strengths in core programming, robust database management, and essential quality assurance practices.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1 chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+                <div class="order-1 md:order-2 p-6 md:p-0">
+                    <ul class="space-y-8 text-slate-800 text-lg">
+                        <li class="flex items-center space-x-4">
+                            <span class="text-blue-600 text-4xl">💻</span>
+                            <p><strong class="font-semibold text-xl">Programming Languages:</strong> Python, SQL, Object-Oriented Programming (OOP)</p>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="text-blue-600 text-4xl">🗄️</span>
+                            <p><strong class="font-semibold text-xl">Databases:</strong> DBMS, Advanced SQL (Querying, Optimization), Database Design (Normalization, Schema), Data Modeling, ETL Concepts, Data Structures</p>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="text-blue-600 text-4xl">🧪</span>
+                            <p><strong class="font-semibold text-xl">Testing & Tools:</strong> Manual Testing, Postman</p>
+                        </li>
+                        <li class="flex items-center space-x-4">
+                            <span class="text-blue-600 text-4xl">☁️</span>
+                            <p><strong class="font-semibold text-xl">Cloud & Concepts:</strong> Microsoft Azure Data Fundamentals (DP-900), Backend Development</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline Section -->
+    <section id="experience" class="container mx-auto section-padding relative overflow-hidden animate-fade-in">
+        <div class="absolute w-48 h-48 bg-blue-200 rounded-full mix-blend-overlay top-0 left-0 section-bg-shape1" style="transform: translate(-30%, -30%);"></div>
+        <div class="absolute w-60 h-60 bg-cyan-200 rounded-full mix-blend-overlay bottom-1/4 right-0 section-bg-shape2" style="transform: translate(30%, 30%);"></div>
+        <div class="relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700 text-center mb-4">My Professional Voyage</h2>
+            <p class="text-center text-slate-700 mb-16 max-w-3xl mx-auto text-lg">
+                A chronological overview of my career, highlighting key roles and significant contributions that have shaped my expertise as a Software Engineer. Each point showcases impactful projects and learned skills.
+            </p>
+            <div class="relative max-w-5xl mx-auto">
+                <div class="timeline-line"></div>
+                <div id="timeline-container" class="space-y-20">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Journey Section -->
+    <section id="education" class="container mx-auto section-padding bg-blue-50 rounded-3xl shadow-2xl relative overflow-hidden animate-fade-in">
+        <div class="absolute w-48 h-48 bg-blue-200 rounded-full mix-blend-overlay top-1/4 right-0 section-bg-shape1" style="transform: translate(30%, -30%);"></div>
+        <div class="absolute w-60 h-60 bg-cyan-200 rounded-full mix-blend-overlay bottom-0 left-0 section-bg-shape2" style="transform: translate(-30%, 30%);"></div>
+        <div class="relative z-10 bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center border-t-8 border-cyan-600">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-6">Academic Journey</h2>
+            <p class="text-lg md:text-xl leading-relaxed text-slate-700 max-w-4xl mx-auto mb-8">
+                My academic foundation in Computer Science & Engineering provided me with the core theoretical knowledge and problem-solving skills essential for software development.
+            </p>
+            <div id="education-content" class="flex flex-col items-center">
+                <!-- Education content will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Spotlight Section -->
+    <section id="projects" class="container mx-auto section-padding relative overflow-hidden animate-fade-in">
+        <div class="absolute w-48 h-48 bg-blue-200 rounded-full mix-blend-overlay top-0 left-0 section-bg-shape1" style="transform: translate(-30%, -30%);"></div>
+        <div class="absolute w-60 h-60 bg-cyan-200 rounded-full mix-blend-overlay bottom-0 right-0 section-bg-shape2" style="transform: translate(30%, 30%);"></div>
+        <div class="relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700 text-center mb-4">Impactful Projects</h2>
+            <p class="text-center text-slate-700 mb-12 max-w-3xl mx-auto text-lg">
+                A selection of projects where I've applied my skills to solve real-world problems, focusing on database design, backend development, and rigorous quality assurance.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            <div class="mt-16 bg-white p-8 rounded-3xl shadow-2xl border-l-8 border-cyan-500">
+                <h3 class="text-2xl font-bold text-slate-800 mb-3">Certification: DP-900 Microsoft Azure Data Fundamentals</h3>
+                <p class="text-slate-700 leading-relaxed">
+                    This certification validates my foundational knowledge of core data concepts and how they are implemented using Microsoft Azure data services, covering relational, non-relational, and analytical data workloads in the cloud. It underscores my commitment to cloud data expertise.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gradient-to-br from-blue-700 to-cyan-600 text-white section-padding text-center animate-fade-in">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-md">Let's Build Something Great Together</h2>
+        <p class="text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto mb-12 drop-shadow-sm">
+            I'm always open to new opportunities and collaborations, especially in the database domain within the financial and consulting sectors. Feel free to reach out!
+        </p>
+        <div class="flex flex-wrap justify-center gap-x-12 gap-y-6 text-xl md:text-2xl">
+            <p class="flex items-center space-x-3 drop-shadow-sm">
+                <span class="text-4xl">📧</span>
+                <a href="mailto:sankhasubhra.das.official@gmail.com" class="hover:underline font-semibold">sankhasubhra.das.official@gmail.com</a>
+            </p>
+            <p class="flex items-center space-x-3 drop-shadow-sm">
+                <span class="text-4xl">📞</span>
+                <span class="font-semibold">+91 6296455939</span>
+            </p>
+            <p class="flex items-center space-x-3 drop-shadow-sm">
+                <span class="text-4xl">🌐</span>
+                <a href="https://www.linkedin.com/in/sankhasubhradas13" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold">LinkedIn Profile</a>
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-sm">&copy; 2025 Sankha Subhra Das. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data for the Infographic
+            const skillsData = {
+                labels: [
+                    'Database Design & SQL',
+                    'Object-Oriented Programming (Python)',
+                    'API & Manual Testing',
+                    'Data Structures & Algorithms',
+                    'System Design Concepts',
+                    'Cloud (Azure)'
+                ],
+                values: [9, 8, 8, 8, 7, 7] // Proficiency out of 10
+            };
+
+            const timelineData = [
+                {
+                    date: 'Dec 2024 - Present',
+                    title: 'Software Engineer, Nehnam Technologies (Magic Workshop)',
+                    description: 'Engineered data parsing solutions for "MagicHealth" using Google Document AI, improving data ingestion efficiency by 25% and ensuring accurate backend system data integration. Conducted rigorous manual testing on the "Student Scholarship Chatbot," validating end-to-end data flow and user interaction to ensure robust functionality.'
+                },
+                {
+                    date: 'Feb 2023 - Dec 2024',
+                    title: 'Software Engineer, Pursuit Software',
+                    description: 'Designed and implemented optimized database schemas and contributed to UI design for "MedixCo," significantly enhancing data organization and retrieval efficiency by 30% for key operations. Developed and maintained the core database infrastructure for a "Real Estate Chatbot," ensuring data consistency, availability, and reliability through comprehensive Postman and manual testing (99.9% data consistency). Performed extensive manual and unit testing across "MagicDrive" and "MayagicAI," identifying and resolving critical defects to ensure high-quality software delivery.'
+                }
+            ];
+
+            const educationData = {
+                degree: 'Bachelor of Technology in Computer Science & Engineering',
+                university: 'University of Engineering and Management, Kolkata',
+                date: 'Jul 2019 - Jun 2023',
+                project: 'Designed and implemented a database for health metrics collection within a "Health Indicator" project, applying data analysis and software development principles to create a health monitoring application.'
+            };
+
+            const projectData = [
+                { title: 'MedixCo Database & UI Enhancement', description: 'Designed and implemented optimized database schemas, significantly enhancing data organization and retrieval efficiency by 30%. Contributed to UI design for improved data visualization.' },
+                { title: 'Real Estate Chatbot Database & QA', description: 'Developed and maintained core database infrastructure, ensuring 99.9% data consistency and availability. Conducted comprehensive Postman and manual testing for reliability.' },
+                { title: 'MagicHealth Data Parsing Automation', description: 'Engineered Google Document AI solutions, improving data ingestion efficiency by 25% and ensuring accurate backend data integration.' },
+                { title: 'Student Scholarship Chatbot Validation', description: 'Conducted rigorous manual testing, validating end-to-end data flow and user interaction to ensure robust functionality and high data integrity.' },
+                { title: 'Cross-Project Quality Assurance', description: 'Performed extensive manual and unit testing across "MagicDrive" and "MayagicAI", identifying and resolving critical defects for high-quality software delivery.' }
+            ];
+
+            // Initialize Chart.js for Skills Chart
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: skillsData.labels,
+                    datasets: [{
+                        label: 'Proficiency Score',
+                        data: skillsData.values,
+                        backgroundColor: [
+                            'rgba(14, 165, 233, 0.9)', // sky-500
+                            'rgba(34, 211, 238, 0.9)', // cyan-400
+                            'rgba(14, 165, 233, 0.8)',
+                            'rgba(34, 211, 238, 0.8)',
+                            'rgba(14, 165, 233, 0.7)',
+                            'rgba(34, 211, 238, 0.7)'
+                        ],
+                        borderColor: [
+                            '#0284C7', // sky-600
+                            '#06B6D4', // cyan-600
+                            '#0284C7',
+                            '#06B6D4',
+                            '#0284C7',
+                            '#06B6D4'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        hoverBackgroundColor: '#1D4ED8', // blue-700
+                        hoverBorderColor: '#1E3A8A' // blue-900
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal bars
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 10,
+                            grid: {
+                                color: '#E2E8F0', // slate-200
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                },
+                                color: '#475569' // slate-600
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    family: 'Inter',
+                                    weight: '500'
+                                },
+                                color: '#1E293B' // slate-900
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1E293B', // slate-900
+                            titleFont: { size: 16, weight: 'bold' },
+                            bodyFont: { size: 14 },
+                            padding: 12,
+                            cornerRadius: 6,
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                        return label.join(' ');
+                                    } else {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        onComplete: function() {
+                            // Can add a small effect here if desired, e.g., skill bars animate in
+                        }
+                    }
+                }
+            });
+
+            // Populate Timeline
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineData.forEach((item, index) => {
+                const isLeft = index % 2 === 0;
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `relative flex items-center mb-16 ${isLeft ? 'md:justify-start' : 'md:justify-end'}`;
+
+                timelineItem.innerHTML = `
+                    <div class="timeline-dot" style="top: 50%;"></div>
+                    <div class="w-full md:w-5/12 ${isLeft ? 'pr-8 md:ml-auto' : 'pl-8 md:mr-auto'} bg-white rounded-xl shadow-lg p-6 border-b-4 ${isLeft ? 'border-sky-500' : 'border-cyan-500'} transform transition-transform duration-500 hover:scale-105">
+                        <p class="text-sm font-semibold text-blue-600 mb-1">${item.date}</p>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">${item.title}</h3>
+                        <p class="text-slate-600 leading-relaxed">${item.description}</p>
+                    </div>
+                `;
+                timelineContainer.appendChild(timelineItem);
+            });
+
+            // Populate Education
+            const educationContentDiv = document.getElementById('education-content'); 
+            educationContentDiv.innerHTML = `
+                <p class="text-xl font-semibold text-slate-800">${educationData.degree}</p>
+                <p class="text-lg text-slate-600">${educationData.university}</p>
+                <p class="text-md text-slate-500 mb-4">${educationData.date}</p>
+                <p class="text-lg text-slate-700 max-w-2xl mx-auto">
+                    ${educationData.project}
+                </p>
+            `;
+
+
+            // Populate Project Cards
+            const projectGrid = document.querySelector('#projects .grid');
+            projectData.forEach((p) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-xl shadow-lg border-b-4 border-blue-400 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative';
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">${p.title}</h3>
+                    <p class="text-slate-700 leading-relaxed mb-4">${p.description}</p>
+                `;
+                projectGrid.appendChild(card);
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu on link click
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Scroll animation for sections
+            const sectionsToAnimate = document.querySelectorAll('section.animate-fade-in');
+            const appearOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            sectionsToAnimate.forEach(section => {
+                appearOnScroll.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
