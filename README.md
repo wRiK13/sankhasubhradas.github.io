@@ -1,4 +1,4 @@
-# Sankha Subhra Das | Software Engineer Portfolio
+# Sankha Subhra Das | Software Engineer & Database Specialist
 
 Welcome to my interactive online portfolio! This repository hosts my personal website, designed to showcase my expertise as a Software Engineer specializing in database management, backend development, and quality assurance.
 
