@@ -7,7 +7,7 @@ My goal with this portfolio is to provide a dynamic and engaging overview of my 
 ## ✨ Live Portfolio
 
 Experience the interactive portfolio live here:
-**[View Live Portfolio]([https://wrik13.github.io/sankhasubhradas.github.io/](https://sankhasubhradas.netlify.app/))**
+**[View Live Portfolio](https://sankhasubhradas.netlify.app/)**
 
 ## 🚀 Features
 
