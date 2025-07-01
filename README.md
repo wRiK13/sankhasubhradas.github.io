@@ -61,6 +61,7 @@ Feel free to connect with me!
 
 * **Email:** sankhasubhra.das.official@gmail.com
 * **LinkedIn:** [linkedin.com/in/sankhasubhradas13](https://www.linkedin.com/in/sankhasubhradas13)
+* **Instagram:** [instagram.com/itzz_w_r_i_k](https://www.instagram.com/itzz_w_r_i_k)
 
 ---
 
