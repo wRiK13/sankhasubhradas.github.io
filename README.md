@@ -61,7 +61,6 @@ Feel free to connect with me!
 
 * **Email:** sankhasubhra.das.official@gmail.com
 * **LinkedIn:** [linkedin.com/in/sankhasubhradas13](https://www.linkedin.com/in/sankhasubhradas13)
-* **Phone:** +91 6296455939
 
 ---
 
